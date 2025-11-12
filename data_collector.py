@@ -5,7 +5,7 @@ import os                                   # Se utiliza para comprobar la exist
 from points import PTS_CRITICOS             # Importamos el diccionario de puntos contenido en el archivo points.py
 
 # ---------------- CONFIGURACIONES ---------------------
-API_KEY = "VsSXpy8DfoqsQqBFK88PH38Q90kDFBbE"
+API_KEY = os.environ.get("TOMTOM_API_KEY")
 
 # URL base de la API de Flow Segment Data
 TOMTOM_API_URL = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json"
@@ -82,4 +82,5 @@ def obtencion_datos():
     
 # Para ejecutar este archivo directamente desde la terminal
 if __name__ == "__main__":
+
     obtencion_datos()
