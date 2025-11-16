@@ -1,9 +1,9 @@
 name: Recolector de Datos de Tráfico
 
-off:
-  schedule:
+on:
+  #schedule:
     # Ejecuta cada 20 minutos
-    - cron: '*/20 * * * *'
+    #- cron: '*/20 * * * *'
   workflow_dispatch: # Permite ejecutarlo manualmente
 
 jobs:
