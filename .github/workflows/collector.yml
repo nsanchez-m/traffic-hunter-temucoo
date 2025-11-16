@@ -1,6 +1,6 @@
 name: Recolector de Datos de Tráfico
 
-on:
+off:
   schedule:
     # Ejecuta cada 20 minutos
     - cron: '*/20 * * * *'
