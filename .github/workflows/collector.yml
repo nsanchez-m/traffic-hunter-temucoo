@@ -6,6 +6,12 @@ on:
     - cron: '*/20 * * * *'
   workflow_dispatch: # Permite ejecutarlo manualmente
 
+# ---------------------------------------------------------
+# SOLUCIÓN: Dar permisos explícitos de escritura al token
+# ---------------------------------------------------------
+permissions:
+  contents: write
+
 jobs:
   collect-data:
     runs-on: ubuntu-latest
@@ -34,6 +40,12 @@ jobs:
           git config --global user.name 'GitHub Action Bot'
           git config --global user.email 'actions@github.com'
           git add data_historico.csv
-          # Solo hace commit si el archivo CSV cambió
-          git commit -m "DATA: Actualización automática de datos de tráfico" || echo "No hay cambios en los datos"
-          git push
+          # Verifica si hay cambios antes de intentar el commit
+          if git diff --staged --quiet; then
+            echo "No hay cambios en los datos."
+          else
+            git commit -m "DATA: Actualización automática de datos de tráfico"
+            # 'git pull --rebase' ayuda si hubo otros commits mientras corría el job
+            git pull --rebase origin main
+            git push
+          fi
